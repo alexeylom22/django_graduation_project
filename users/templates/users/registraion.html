@@ -1,0 +1,23 @@
+{% extends 'mainapp/index.html' %}
+{% block content %}
+  <div class="container home-info">
+    <h2>Регистрация на сайта</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {% for field in form %}
+          <div class="fieldWrapper">
+              {{ field.errors }}
+              {{ field.label_tag }} {{ field }}
+              {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+              {% endif %}
+
+          </div>
+      {% endfor %}
+      <center><button type="submit" class="btn-red">Зарегистрироваться</button></center>
+    </form>
+    <hr>
+    Уже зарегистрированы? <a href="{% url 'user' %}">Войти в личный кабинет</a>
+
+    </div>
+{% endblock content %}

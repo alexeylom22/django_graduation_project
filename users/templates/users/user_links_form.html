@@ -1,0 +1,32 @@
+{% extends 'mainapp/index.html' %}
+{% block title %}
+  Создание ссылок
+{% endblock %}
+{% block content %}
+
+    <div class="container home-info">
+        <h2>Создание ссылок</h2>
+
+        <form method="POST" action="links/add">
+        {% csrf_token %}
+            <div class="fieldWrapper">
+                <input type="text" name="name" value="{{ user.username }}" hidden/>
+                <label>Введите полную ссылку</label><br>
+                <input class="form-control" type="text" name="full_link" />
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+                <label>Введите сокращенную ссылку</label><br>
+                <input class="form-control" type="text" name="short_link" />
+            </div>
+        <center><input class="btn-red" type="submit" value="Сохранить" ></center>
+    </form>
+    {% if people.count > 0 %}
+        <h2>Список ссылок</h2>
+        {% for person in people %}
+            <span><b>Ссылка: </b><a href="{{person.full_link}}">{{ person.short_link }}</a></span>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+{% endblock content %}
